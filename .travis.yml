@@ -1,0 +1,17 @@
+sudo: required
+
+env:
+  - distribution: ubuntu
+    version: xenial
+  - distribution: ubuntu
+    version: bionic
+
+services:
+  - docker
+
+before_install:
+  - sudo docker pull ${distribution}:${version}
+
+script:
+  # Run tests in Container
+  - 'sudo docker run --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:ro --volume="${PWD}":/test -w /test -it ${distribution}:${version} bash tests/ansible.sh'
