@@ -7,7 +7,7 @@
     update_cache: yes
   with_items: 
     - nginx
-    - php5-fpm
+    - php-fpm
 
 ######### WEB-SERVER CONFIGURATION #########
 

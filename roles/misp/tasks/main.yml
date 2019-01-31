@@ -30,11 +30,11 @@
     - libxml2-dev
     - libxslt1-dev
     - zlib1g-dev
-    - php5-dev
+    - php-dev
     - curl
     - gnupg-agent
-    - php5-mysql
-    - php5-redis
+    - php-mysql
+    - php-redis
 
 ######### MISP users and groups #########
 
