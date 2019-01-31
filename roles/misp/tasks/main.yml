@@ -35,6 +35,14 @@
     - gnupg-agent
     - php-mysql
     - php-redis
+    - php-mbstring
+    - php-xml
+    - php-readline
+    - php-opcache
+    - php-json
+    - php-dev
+    - php-gnupg
+    - php-cli
 
 ######### MISP users and groups #########
 
@@ -72,26 +80,6 @@
     - "/opt/misp-server"
     - "/opt/misp-server/misp"
     - "/opt/misp-server/tmp"
-
-######### PEAR: CRYPTPGP #########
-- name: Configure PEAR proxy
-  shell: "{{ item }}"
-  args:
-    creates: /home/misp/ansible/ansible_shell_pear_configure_proxy.log
-  with_items:
-    - "pear config-set http_proxy http://{{proxy_host}}:{{proxy_port}} > /home/misp/ansible/ansible_shell_pear_configure_proxy.log"
-
-- name: Configure PEAR tmp
-  shell: "{{ item }}"
-  args:
-    creates: /home/misp/ansible/ansible_shell_pear_configure_tmp.log
-  with_items:
-    - pear config-set temp_dir /opt/misp-server/tmp/ > /home/misp/ansible/ansible_shell_pear_configure_tmp.log
-
-- name: Install CryptGPG
-  pear:
-    name: Crypt_GPG
-    state: present
 
 ######### MISP REPOSITORY #########
 
@@ -160,6 +148,15 @@
     creates: /home/misp/ansible/ansible_shell_pythonstix_setup.log
   with_items:
     - python setup.py install > /home/misp/ansible/ansible_shell_pythonstix_setup.log
+
+######### PEAR: CRYPTPGP #########
+- name: Install ConsoleCommandLine
+  shell: pear install /opt/misp-server/misp/INSTALL/dependencies/Console_CommandLine/package.xml
+  become: yes
+
+- name: Install CryptGPG
+  shell: pear install /opt/misp-server/misp/INSTALL/dependencies/Crypt_GPG/package.xml
+  become: yes
 
 ######### CAKE PHP #########
 
