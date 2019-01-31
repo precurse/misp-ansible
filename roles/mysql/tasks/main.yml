@@ -10,6 +10,12 @@
     pkg: python-mysqldb
     state: present
 
+- name: Ensure mysqld started
+  service:
+    name: mysql
+    state: started
+    enabled: yes
+
 - name: MySQL - Update mysql root passwd
   mysql_user:
     name: root 
